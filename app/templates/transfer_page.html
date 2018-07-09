@@ -1,0 +1,32 @@
+{% extends 'profile_base.html' %}
+
+{% block profile_content %}
+    <h1>Cash amount: {{ account.cash_amount }}</h1>
+    <hr>
+    <h2>Transfer to another account</h2>
+    <form action="" method="post" novalidate>
+        {{  form.hidden_tag()  }}
+        <p>
+            {{ form.transfer_amount.label }}<br>
+            {{ form.transfer_amount(size=32) }}<br>
+            {% for error in form.transfer_amount.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.recipient.label }}<br>
+            {{ form.recipient(size=64) }}<br>
+            {% for error in form.recipient.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.category.label }}<br>
+            {{ form.category(size=64) }}<br>
+            {% for error in form.category.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

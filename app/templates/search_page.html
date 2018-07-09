@@ -1,0 +1,24 @@
+{% extends 'profile_base.html' %}
+
+{% block profile_content %}
+    <h1>Search parameters</h1>
+    <hr>
+    <form action="" method="post" novalidate>
+        {{  form.hidden_tag()  }}
+        <p>
+            {{ form.type.label }}<br>
+            {{ form.type(size=3) }}<br>
+            {% for error in form.type.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.category.label }}<br>
+            {{ form.category(size=32) }}<br>
+            {% for error in form.category.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

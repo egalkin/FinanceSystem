@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        Menu:
+        <a href="{{ url_for('bank_account', account_name=account.account_name) }}">Account</a>
+    </div>
+    {% block profile_content %}{% endblock %}
+{% endblock %}

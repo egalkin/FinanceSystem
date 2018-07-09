@@ -1,0 +1,13 @@
+{% extends 'profile_base.html' %}
+
+{% block profile_content %}
+    <h1>Type: {{ type }}</h1>
+    <h2>Category: {{ category }}</h2>
+    <h3>Account: {{ account.account_name }}</h3>
+    <hr>
+    {% for elem in list %}
+        <p class="list">
+            <b>{{ elem.__repr__() }}</b>
+        </p>
+    {% endfor %}
+{% endblock %}

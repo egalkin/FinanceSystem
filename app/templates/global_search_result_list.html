@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Type: {{ type }}</h1>
+    <h2>Category: {{ category }}</h2>
+    <hr>
+    {% for key in dict %}
+        <h3>{{ key }}:</h3>
+        {% for elem in dict[key] %}
+            <p class="list">
+                <b>{{ elem.__repr__() }}</b>
+            </p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'profile_base.html' %}
+
+{% block profile_content %}
+    <h1>Saving Accounts</h1>
+    <hr>
+    {% for saving_account in saving_accounts %}
+        <p>
+            <b>{{ saving_account.__repr__() }}</b>
+        </p>
+    {% endfor %}
+     <p><a href="{{ url_for('new_saving_account', account_name=account.account_name) }}">Create new saving account</a> </p>
+{% endblock %}

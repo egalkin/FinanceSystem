@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <style>
+           p.list {text-indent: 20px;}
+        </style>
+        <title>Welcome to Personal Finance System</title>
+    </head>
+    <body>
+        <div>
+            Finance System:
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

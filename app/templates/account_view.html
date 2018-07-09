@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Cash amount: {{ account.cash_amount }}</h1>
+    <hr>
+    <h2>Do operation</h2>
+    <form action="" method="post" novalidate>
+        {{  form.hidden_tag()  }}
+        <p>
+            {{ form.operation_type.label }}<br>
+            {{ form.operation_type(size=2) }}<br>
+            {% for error in form.operation_type.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.operation_amount.label }}<br>
+            {{ form.operation_amount(size=32) }}<br>
+            {% for error in form.operation_amount.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.category.label }}<br>
+            {{ form.category(size=64) }}<br>
+            {% for error in form.category.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+        <p><a href="{{ url_for('transfer', account_name=account.account_name)}}">Transfer to another account</a></p>
+        <p><a href="{{ url_for('saving_accounts', account_name=account.account_name)}}">Saving accounts</a></p>
+        <p><a href="{{ url_for('transactions', account_name=account.account_name)}}">Transactions journal</a></p>
+        <p><a href="{{ url_for('operations', account_name=account.account_name)}}">Operations journal</a></p>
+        <p><a href="{{ url_for('plot', account_name=account.account_name) }}">Build operations plot</a> </p>
+        <p><a href="{{ url_for('delete', account_name=account.account_name) }}">Delete account</a> </p>
+    </form>
+{% endblock %}

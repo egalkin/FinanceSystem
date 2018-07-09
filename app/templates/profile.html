@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Client Accounts:</h1>
+    {% for account in accounts %}
+        <p>
+            <b><a href="{{ url_for('bank_account', account_name = account.account_name) }}">{{ account.__repr__() }}</a></b>
+        </p>
+    {% endfor %}
+    <hr>
+     <p><a href="{{ url_for('new_account') }}">Create new account</a> </p>
+     <p><a href="{{ url_for('global_operations') }}">Operations journal</a> </p>
+{% endblock %}
