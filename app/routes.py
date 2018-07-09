@@ -129,15 +129,15 @@ def saving_accounts(account_name):
 def global_operations():
     form = GlobalOperationForm()
     if form.validate_on_submit():
+        type = form.type.data
+        category = 'Default' if form.category.data == '' else form.category.data
         if form.account_name.data != '':
-            return render_template('search_result_list.html', type=form.type.data, category=form.category.data,
-                                   list=search_function(is_operations=True, type=form.type.data,
-                                                        category=form.category.data,
+            return render_template('search_result_list.html', type=type, category=category,
+                                   list=search_function(is_operations=True, type=type,
+                                                        category=category,
                                                         account_name=form.account_name.data),
                                    account=BankAccount.query.filter_by(account_name=form.account_name.data).first())
         accounts_dict = {}
-        type = form.type.data
-        category = 'Default' if form.category.data == '' else form.category.data
         accounts = BankAccount.query.all()
         for account in accounts:
             if account.account_name in accounts_dict:
