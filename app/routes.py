@@ -6,8 +6,8 @@ from forex_python.converter import CurrencyRates
 from app.errors import NotEnoughMoneyException
 from app.forms import TransferForm, SavingAccountForm, \
     SearchForm, BankAccountForm, OperationForm, GlobalOperationForm
-from app.models import BankAccount, do_transaction, SavingAccount, raise_saving_account, \
-    do_operation
+from app.models import BankAccount, do_transaction, SavingAccount, \
+    do_operation, raise_saving_accounts
 
 from app import app, db
 from app.utils import search_function, check_account_existence
@@ -33,6 +33,8 @@ def new_account():
         account = BankAccount(account_name=form.account_name.data, cash_amount=float(form.start_amount.data))
         db.session.add(account)
         db.session.commit()
+        t = Thread(target=raise_saving_accounts, args=(account.id,))
+        t.start()
         return redirect(url_for('profile'))
     return render_template('new_bank_account.html', form=form)
 
@@ -166,8 +168,6 @@ def new_saving_account(account_name):
                                        parent_account=account)
         db.session.add(saving_account)
         db.session.commit()
-        t = Thread(target=raise_saving_account, args=(saving_account.id,))
-        t.start()
         return redirect(url_for('saving_accounts', account_name=account.account_name))
     return render_template('new_saving_account.html', form=form, account=account)
 
