@@ -67,7 +67,7 @@ def transfer(account_name):
     if transfer_form.validate_on_submit():
         try:
             recipient_account = BankAccount.query.filter_by(account_name=transfer_form.recipient.data).first()
-            do_transaction(sender=account, recipient=recipient_account, amount=int(transfer_form.transfer_amount.data),
+            do_transaction(sender=account, recipient=recipient_account, amount=float(transfer_form.transfer_amount.data),
                            category='Default' if transfer_form.category.data == '' else transfer_form.category.data)
             redirect(url_for('profile'))
         except NotEnoughMoneyException:
