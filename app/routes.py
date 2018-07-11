@@ -7,7 +7,7 @@ from app.errors import NotEnoughMoneyException
 from app.forms import TransferForm, SavingAccountForm, \
     SearchForm, BankAccountForm, OperationForm, GlobalOperationForm
 from app.models import BankAccount, do_transaction, SavingAccount, \
-    do_operation, raise_saving_accounts
+    do_operation, raise_saving_accounts, get_currency_sign
 
 from app import app, db
 from app.utils import search_function, check_account_existence
@@ -166,6 +166,7 @@ def new_saving_account(account_name):
             return render_template('not_enough_money.html', err_info='to create saving account', account=account)
         account.cash_amount -= float(form.account_amount.data)
         saving_account = SavingAccount(account_name=form.name.data, account_amount=int(form.account_amount.data),
+                                       account_currency=get_currency_sign(account.account_currency),
                                        parent_account=account)
         db.session.add(saving_account)
         db.session.commit()

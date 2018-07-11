@@ -27,7 +27,7 @@ class BankAccount(db.Model):
         return 'Account: {}'.format(self.account_name)
 
     def amount_repr(self):
-        return '{} {}'.format(self.cash_amount, get_currency_sign(self.account_currency))
+        return '{:.3f} {}'.format(self.cash_amount, get_currency_sign(self.account_currency))
 
 
 class Transaction(db.Model):
@@ -43,11 +43,11 @@ class Transaction(db.Model):
 
     def __repr__(self):
         if self.is_income:
-            return 'Transaction to account {} : {}{}'.format(self.recipient_name, self.transaction_amount,
-                                                             self.transaction_currency)
+            return 'Transaction to account {} : {:.3f}{}'.format(self.recipient_name, self.transaction_amount,
+                                                                 self.transaction_currency)
         else:
-            return 'Received from account {} : +{}{}'.format(self.sender_name, self.transaction_amount,
-                                                             self.transaction_currency)
+            return 'Received from account {} : +{:.3f}{}'.format(self.sender_name, self.transaction_amount,
+                                                                 self.transaction_currency)
 
 
 class Operation(db.Model):
@@ -71,20 +71,22 @@ class SavingAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     account_amount = db.Column(db.Float, index=True)
     account_name = db.Column(db.String(128), index=True)
+    account_currency = db.Column(db.String(64), index=True)
     account_id = db.Column(db.Integer, db.ForeignKey('bank_account.id'))
     raise_percent = db.Column(db.Integer, index=True)
 
     def raise_amount(self):
         self.account_amount *= 1.0 + (1 / self.raise_percent)
 
-    def __init__(self, account_amount, account_name, parent_account, raise_percent=10):
+    def __init__(self, account_amount, account_name, account_currency, parent_account, raise_percent=10):
         self.account_amount = account_amount
         self.account_name = account_name
+        self.account_currency = account_currency
         self.parent_account = parent_account
         self.raise_percent = raise_percent
 
     def __repr__(self):
-        return '{} : {:.3f}'.format(self.account_name, self.account_amount)
+        return '{} : {:.3f} {}'.format(self.account_name, self.account_amount, self.account_currency)
 
 
 def do_transaction(sender: BankAccount, recipient: BankAccount, amount: float, category: str = 'Default') -> None:
