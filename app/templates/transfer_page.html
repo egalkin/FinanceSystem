@@ -1,7 +1,7 @@
 {% extends 'profile_base.html' %}
 
 {% block profile_content %}
-    <h1>Cash amount: {{ account.cash_amount }}</h1>
+    <h1>Cash amount: {{ account.amount_repr() }}</h1>
     <hr>
     <h2>Transfer to another account</h2>
     <form action="" method="post" novalidate>
