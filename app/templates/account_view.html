@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Cash amount: {{ account.cash_amount }}</h1>
+    <h1>Cash amount: {{ account.amount_repr() }}</h1>
     <hr>
     <h2>Do operation</h2>
     <form action="" method="post" novalidate>

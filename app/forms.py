@@ -57,6 +57,7 @@ class GlobalOperationForm(SearchForm):
 
 
 class BankAccountForm(FlaskForm):
+    account_currency = SelectField('Account currency', choices=[('RUB', 'RUB'), ('USD', 'USD'), ('EUR', 'EUR')])
     account_name = StringField('Account name', validators=[DataRequired()])
     start_amount = StringField('Start amount', validators=[DataRequired()])
     submit = SubmitField('Create')

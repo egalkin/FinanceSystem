@@ -5,6 +5,13 @@
     <form action="" method="post" novalidate>
         {{ form.hidden_tag()}}
         <p>
+            {{ form.account_currency.label }}<br>
+            {{ form.account_currency(size=3) }}<br>
+            {% for error in form.account_currency.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.account_name.label }}<br>
             {{ form.account_name(size=32) }}<br>
             {% for error in form.account_name.errors %}

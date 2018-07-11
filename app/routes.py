@@ -30,7 +30,8 @@ def profile():
 def new_account():
     form = BankAccountForm()
     if form.validate_on_submit():
-        account = BankAccount(account_name=form.account_name.data, cash_amount=float(form.start_amount.data))
+        account = BankAccount(account_name=form.account_name.data, account_currency=form.account_currency.data,
+                              cash_amount=float(form.start_amount.data))
         db.session.add(account)
         db.session.commit()
         t = Thread(target=raise_saving_accounts, args=(account.id,))
